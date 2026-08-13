@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A simple job application tracker that stores your applications locally in the browser." />
+  <title>Job Application Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Career Organizer</p>
+      <h1>Job Application Tracker</h1>
+      <p class="subtitle">Keep every application, status, and follow-up in one place.</p>
+    </div>
+    <button id="themeToggle" class="secondary-btn" type="button" aria-label="Toggle theme">☾ Dark</button>
+  </header>
+
+  <main class="container">
+    <section class="stats" aria-label="Application statistics">
+      <article class="stat-card"><span>Total</span><strong id="totalCount">0</strong></article>
+      <article class="stat-card"><span>Applied</span><strong id="appliedCount">0</strong></article>
+      <article class="stat-card"><span>Interviews</span><strong id="interviewCount">0</strong></article>
+      <article class="stat-card"><span>Offers</span><strong id="offerCount">0</strong></article>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Add application</p>
+          <h2>New job</h2>
+        </div>
+      </div>
+
+      <form id="jobForm" class="job-form">
+        <input type="hidden" id="editId" />
+        <label>Company<input id="company" type="text" maxlength="80" placeholder="e.g. Zain Jordan" required /></label>
+        <label>Position<input id="position" type="text" maxlength="100" placeholder="e.g. Software Engineering Intern" required /></label>
+        <label>Status
+          <select id="status">
+            <option value="Applied">Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </label>
+        <label>Application date<input id="date" type="date" required /></label>
+        <label class="wide">Job link<input id="link" type="url" maxlength="500" placeholder="https://..." /></label>
+        <label class="wide">Notes<textarea id="notes" rows="3" maxlength="500" placeholder="Recruiter name, follow-up date, interview notes..."></textarea></label>
+        <div class="form-actions wide">
+          <button id="saveBtn" class="primary-btn" type="submit">Add application</button>
+          <button id="cancelEditBtn" class="secondary-btn hidden" type="button">Cancel edit</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading toolbar-heading">
+        <div>
+          <p class="eyebrow">Your pipeline</p>
+          <h2>Applications</h2>
+        </div>
+        <div class="data-actions">
+          <button id="exportBtn" class="secondary-btn" type="button">Export</button>
+          <label class="secondary-btn file-btn">Import<input id="importInput" type="file" accept="application/json" /></label>
+        </div>
+      </div>
+
+      <div class="filters">
+        <label class="search-field"><span class="sr-only">Search applications</span><input id="searchInput" type="search" placeholder="Search company or position..." /></label>
+        <label><span class="sr-only">Filter by status</span>
+          <select id="statusFilter">
+            <option value="All">All statuses</option>
+            <option value="Applied">Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon">⌕</div>
+        <h3>No applications yet</h3>
+        <p>Add your first job application above. Everything is saved locally in your browser.</p>
+      </div>
+      <div id="jobsList" class="jobs-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <template id="jobCardTemplate">
+    <article class="job-card">
+      <div class="job-card-main">
+        <div class="job-title-row">
+          <div><h3 class="job-position"></h3><p class="job-company"></p></div>
+          <span class="status-badge"></span>
+        </div>
+        <div class="job-meta"><span class="job-date"></span><a class="job-link" target="_blank" rel="noopener noreferrer">Open job ↗</a></div>
+        <p class="job-notes"></p>
+      </div>
+      <div class="job-actions"><button class="edit-btn secondary-btn" type="button">Edit</button><button class="delete-btn danger-btn" type="button">Delete</button></div>
+    </article>
+  </template>
+
+  <footer><p>Built with HTML, CSS & JavaScript · Data stays on your device.</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
